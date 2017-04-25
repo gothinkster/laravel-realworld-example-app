@@ -11,6 +11,10 @@ Homestead.yaml
 npm-debug.log
 .env
 
+# Ignore ide helper files
+_ide_helper.php
+.phpstorm.meta.php
+
 # dependencies
 /bower_components
 
