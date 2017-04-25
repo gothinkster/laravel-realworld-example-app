@@ -1,7 +1,17 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
+# Laravel gitignore
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+/.idea
+/.vagrant
+Homestead.json
+Homestead.yaml
+npm-debug.log
+.env
 
 # dependencies
-/node_modules
 /bower_components
 
 # IDEs and editors
