@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +11,36 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['namespace' => 'Api'], function () {
+
+    Route::post('users/login', 'AuthController@login');
+    Route::post('users', 'AuthController@register');
+
+    Route::get('user', 'UserController@index');
+    Route::match(['put', 'patch'], 'user', 'UserController@update');
+
+    Route::group(['prefix' => 'profiles'], function () {
+        Route::get('{username}', 'ProfileController@show');
+        Route::post('{username}/follow', 'ProfileController@follow');
+        Route::delete('{username}/follow', 'ProfileController@unFollow');
+    });
+
+    Route::resource('articles', 'ArticleController', [
+        'except' => [
+            'create', 'edit'
+        ]
+    ]);
+
+    Route::get('articles/feed', 'ArticleController@feed');
+    Route::post('articles/{article}/favorite', 'ArticleController@favorite');
+    Route::delete('articles/{article}/favorite', 'ArticleController@unFavorite');
+
+    Route::resource('articles/{article}/comments', 'CommentController', [
+        'only' => [
+            'index', 'store', 'destroy'
+        ]
+    ]);
+
+    Route::get('tags', 'TagController@index');
+
 });
