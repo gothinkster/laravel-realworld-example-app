@@ -4,10 +4,10 @@ namespace App\Transformers;
 
 class TagTransformer extends Transformer
 {
-    public function item($data)
+    protected $resourceName = 'tag';
+
+    public function transform($data)
     {
-        return [
-            'tags' => $data
-        ];
+        return $data;
     }
 }

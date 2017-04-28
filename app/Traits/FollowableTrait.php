@@ -28,14 +28,14 @@ trait FollowableTrait
         return $this->following()->detach($user);
     }
 
-    public function followers()
-    {
-        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id')->withTimestamps();
-    }
-
     public function following()
     {
         return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id')->withTimestamps();
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id')->withTimestamps();
     }
 
     public function isFollowing(User $user)

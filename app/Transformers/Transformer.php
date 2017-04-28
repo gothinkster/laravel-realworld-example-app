@@ -4,10 +4,21 @@ namespace App\Transformers;
 
 abstract class Transformer
 {
+    protected $resourceName = 'data';
+
     public function collection(array $data)
     {
-        return array_map([$this, 'item'], $data);
+        return [
+            str_plural($this->resourceName) => array_map([$this, 'transform'], $data)
+        ];
     }
 
-    public abstract function item($data);
+    public function item($data)
+    {
+        return [
+            $this->resourceName => $this->transform($data)
+        ];
+    }
+
+    public abstract function transform($data);
 }

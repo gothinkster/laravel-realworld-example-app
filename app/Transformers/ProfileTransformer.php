@@ -4,15 +4,15 @@ namespace App\Transformers;
 
 class ProfileTransformer extends Transformer
 {
-    public function item($data)
+    protected $resourceName = 'profile';
+
+    public function transform($data)
     {
         return [
-            'profile' => [
-                'username' => $data['username'],
-                'bio' => $data['bio'],
-                'image' => $data['image'],
-                'following' => $data['following'],
-            ]
+            'username' => $data['username'],
+            'bio' => $data['bio'],
+            'image' => $data['image'],
+            'following' => $data['following'],
         ];
     }
 }

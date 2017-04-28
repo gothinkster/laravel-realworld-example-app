@@ -3,13 +3,14 @@
 namespace App;
 
 use JWTAuth;
+use App\Traits\FavoriteTrait;
 use App\Traits\FollowableTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable, FollowableTrait;
+    use Notifiable, FavoriteTrait, FollowableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -47,6 +48,16 @@ class User extends Authenticatable
     public function getTokenAttribute()
     {
         return JWTAuth::fromUser($this);
+    }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
     /**
