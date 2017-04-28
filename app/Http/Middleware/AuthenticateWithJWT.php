@@ -13,11 +13,12 @@ class AuthenticateWithJWT extends BaseMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
+     * @param bool $optional
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $optional = null)
     {
         $this->auth->setRequest($request);
 
@@ -30,7 +31,9 @@ class AuthenticateWithJWT extends BaseMiddleware
         } catch (TokenInvalidException $e) {
             return $this->respondError('Token is invalid', $e->getStatusCode());
         } catch (JWTException $e) {
-            return $this->respondError('Token is absent', $e->getStatusCode());
+            if ($optional === null) {
+                return $this->respondError('Token is absent', $e->getStatusCode());
+            }
         }
 
         return $next($request);

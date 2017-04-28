@@ -24,8 +24,7 @@ class AuthController extends ApiController
             return $this->respondUnauthorized('Invalid credentials');
         }
 
-        $user = $this->transformer->item(auth()->user());
-        return $this->respond($user);
+        return $this->respondWithTransformer(auth()->user());
     }
 
     public function register(RegisterUser $request)
@@ -36,7 +35,6 @@ class AuthController extends ApiController
             'password' => $request->input('user.password'),
         ]);
 
-        $user = $this->transformer->item($user);
-        return $this->respondCreated($user);
+        return $this->respondWithTransformer($user);
     }
 }

@@ -13,6 +13,15 @@ class ApiController extends Controller
         return response()->json($data, $statusCode, $headers);
     }
 
+    public function respondWithTransformer($data, $statusCode = 200, $headers = [])
+    {
+        if ($this->transformer !== null) {
+            $data = $this->transformer->item($data);
+        }
+
+        return $this->respond($data, $statusCode, $headers);
+    }
+
     protected function respondCreated($data)
     {
         return $this->respond($data, 201);

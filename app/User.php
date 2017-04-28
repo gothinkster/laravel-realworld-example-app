@@ -3,12 +3,13 @@
 namespace App;
 
 use JWTAuth;
+use App\Traits\FollowableTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, FollowableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -46,5 +47,15 @@ class User extends Authenticatable
     public function getTokenAttribute()
     {
         return JWTAuth::fromUser($this);
+    }
+
+    /**
+     * Get the key name for route model binding.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'username';
     }
 }

@@ -16,9 +16,7 @@ class UserController extends ApiController
 
     public function index()
     {
-        $user = $this->transformer->item(auth()->user());
-
-        return $this->respond($user);
+        return $this->respondWithTransformer(auth()->user());
     }
 
     public function update(UpdateUser $request)
@@ -27,8 +25,6 @@ class UserController extends ApiController
 
         $user->update($request->get('user'));
 
-        $user = $this->transformer->item($user);
-
-        return $this->respond($user);
+        return $this->respondWithTransformer($user);
     }
 }
