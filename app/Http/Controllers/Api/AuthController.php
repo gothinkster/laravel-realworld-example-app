@@ -2,85 +2,41 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Tag;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Auth;
+use App\User;
+use App\Transformers\UserTransformer;
+use App\Http\Requests\Api\LoginUser;
+use App\Http\Requests\Api\RegisterUser;
 
-class AuthController extends Controller
+class AuthController extends ApiController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct(UserTransformer $transformer)
     {
-        //
+        $this->transformer = $transformer;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function login(LoginUser $request)
     {
-        //
+        $credentials = $request->only('user.email', 'user.password');
+        $credentials = $credentials['user'];
+
+        if (! Auth::once($credentials)) {
+            return $this->respondUnauthorized('Invalid credentials');
+        }
+
+        $user = $this->transformer->item(auth()->user());
+        return $this->respond($user);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function register(RegisterUser $request)
     {
-        //
-    }
+        $user = User::create([
+            'username' => $request->input('user.username'),
+            'email' => $request->input('user.email'),
+            'password' => $request->input('user.password'),
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Tag $tag)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Tag $tag)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Tag $tag)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Tag $tag)
-    {
-        //
+        $user = $this->transformer->item($user);
+        return $this->respondCreated($user);
     }
 }

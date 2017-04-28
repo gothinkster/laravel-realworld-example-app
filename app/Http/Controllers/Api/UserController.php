@@ -2,85 +2,33 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Tag;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Transformers\UserTransformer;
+use App\Http\Requests\Api\UpdateUser;
 
-class UserController extends Controller
+class UserController extends ApiController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct(UserTransformer $transformer)
+    {
+        $this->transformer = $transformer;
+
+        $this->middleware('auth.api');
+    }
+
     public function index()
     {
-        //
+        $user = $this->transformer->item(auth()->user());
+
+        return $this->respond($user);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function update(UpdateUser $request)
     {
-        //
-    }
+        $user = auth()->user();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $user->update($request->get('user'));
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Tag $tag)
-    {
-        //
-    }
+        $user = $this->transformer->item($user);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Tag $tag)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Tag $tag)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Tag $tag)
-    {
-        //
+        return $this->respond($user);
     }
 }
