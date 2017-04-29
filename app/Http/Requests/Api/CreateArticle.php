@@ -22,7 +22,10 @@ class CreateArticle extends ApiRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'body' => 'required|string',
+            'tagList' => 'sometimes|array',
         ];
     }
 }

@@ -6,9 +6,14 @@ use App\Article;
 
 trait FavoriteTrait
 {
+    public function getFavoritesCountAttribute()
+    {
+        return $this->favorites()->count();
+    }
+
     public function favorite(Article $article)
     {
-        if (! $this->isFavorite($article))
+        if (! $this->hasFavorited($article))
         {
             return $this->favorites()->attach($article);
         }
@@ -24,7 +29,7 @@ trait FavoriteTrait
         return $this->belongsToMany(Article::class, 'favorites', 'user_id', 'article_id')->withTimestamps();
     }
 
-    public function isFavorite(Article $article)
+    public function hasFavorited(Article $article)
     {
         return !! $this->favorites()->where('article_id', $article->id)->count();
     }
