@@ -6,6 +6,7 @@ use App\Filters\Filterable;
 use App\Traits\FavoritedTrait;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Schema\Builder;
 
 class Article extends Model
 {
@@ -21,13 +22,37 @@ class Article extends Model
     ];
 
     /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = ['tags'];
+
+    /**
      * Get a list of tags that belong to the article.
      *
-     * @return mixed
+     * @return array
      */
     public function getTagListAttribute()
     {
-        return $this->tags()->pluck('name')->toArray();
+        return $this->tags->pluck('name')->toArray();
+    }
+
+    /**
+     * Load all required relationships with only necessary content
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeLoadRelations($query)
+    {
+        return $query->with(['user.followers' => function ($query) {
+                $query->where('follower_id', auth()->id());
+            }])
+            ->with(['favorited' => function ($query) {
+                $query->where('user_id', auth()->id());
+            }])
+            ->withCount('favorited');
     }
 
     /**

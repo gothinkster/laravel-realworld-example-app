@@ -79,7 +79,7 @@ class User extends Authenticatable
     {
         $followingIds = $this->following()->pluck('id')->toArray();
 
-        return Article::latest()->whereIn('user_id', $followingIds);
+        return Article::latest()->loadRelations()->whereIn('user_id', $followingIds);
     }
 
     /**

@@ -12,7 +12,19 @@ trait FollowableTrait
             return false;
         }
 
-        return $this->isFollowedBy(auth()->user());
+        if (! $this->relationLoaded('followers')) {
+            $this->load(['followers' => function ($query) {
+                $query->where('follower_id', auth()->id());
+            }]);
+        }
+
+        $followers = $this->getRelation('followers');
+
+        if (! empty($followers) && $followers->contains('id', auth()->id())) {
+            return true;
+        }
+
+        return false;
     }
 
     public function follow(User $user)

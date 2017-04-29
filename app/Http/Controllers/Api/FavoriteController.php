@@ -20,8 +20,6 @@ class FavoriteController extends ApiController
 
         $user->favorite($article);
 
-        $article->load('user');
-
         return $this->respondWithTransformer($article);
     }
 
@@ -30,8 +28,6 @@ class FavoriteController extends ApiController
         $user = auth()->user();
 
         $user->unFavorite($article);
-
-        $article->load('user');
 
         return $this->respondWithTransformer($article);
     }

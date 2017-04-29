@@ -6,11 +6,6 @@ use App\Article;
 
 trait FavoriteTrait
 {
-    public function getFavoritesCountAttribute()
-    {
-        return $this->favorites()->count();
-    }
-
     public function favorite(Article $article)
     {
         if (! $this->hasFavorited($article))

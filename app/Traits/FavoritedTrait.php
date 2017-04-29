@@ -12,11 +12,27 @@ trait FavoritedTrait
             return false;
         }
 
-        return $this->isFavoritedBy(auth()->user());
+        if (! $this->relationLoaded('favorited')) {
+            $this->load(['favorited' => function ($query) {
+                $query->where('user_id', auth()->id());
+            }]);
+        }
+
+        $favorited = $this->getRelation('favorited');
+
+        if (! empty($favorited) && $favorited->contains('id', auth()->id())) {
+            return true;
+        }
+
+        return false;
     }
 
     public function getFavoritesCountAttribute()
     {
+        if (array_key_exists('favorited_count', $this->getAttributes())) {
+            return $this->favorited_count;
+        }
+
         return $this->favorited()->count();
     }
 

@@ -23,7 +23,7 @@ class ArticleController extends ApiController
 
     public function index(ArticleFilter $filter)
     {
-        $articles = new Paginator(Article::latest()->filter($filter));
+        $articles = new Paginator(Article::latest()->loadRelations()->filter($filter));
 
         return $this->respondWithPagination($articles);
     }
@@ -54,8 +54,6 @@ class ArticleController extends ApiController
 
     public function show(Article $article)
     {
-        $article->load('user');
-        
         return $this->respondWithTransformer($article);
     }
 

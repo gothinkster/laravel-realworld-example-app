@@ -16,6 +16,13 @@ class Comment extends Model
     ];
 
     /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = ['user'];
+
+    /**
      * Get the user that owns the comment.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
