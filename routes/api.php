@@ -25,15 +25,15 @@ Route::group(['namespace' => 'Api'], function () {
         Route::delete('{user}/follow', 'ProfileController@unFollow');
     });
 
+    Route::get('articles/feed', 'FeedController@index');
+    Route::post('articles/{article}/favorite', 'FavoriteController@add');
+    Route::delete('articles/{article}/favorite', 'FavoriteController@remove');
+
     Route::resource('articles', 'ArticleController', [
         'except' => [
             'create', 'edit'
         ]
     ]);
-
-    Route::get('articles/feed', 'FeedController@index');
-    Route::post('articles/{article}/favorite', 'FavoriteController@add');
-    Route::delete('articles/{article}/favorite', 'FavoriteController@remove');
 
     Route::resource('articles/{article}/comments', 'CommentController', [
         'only' => [

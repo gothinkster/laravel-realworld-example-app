@@ -71,6 +71,18 @@ class User extends Authenticatable
     }
 
     /**
+     * Get all the following user articles.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function feed()
+    {
+        $followingIds = $this->following()->pluck('id')->toArray();
+
+        return Article::latest()->whereIn('user_id', $followingIds);
+    }
+
+    /**
      * Get the key name for route model binding.
      *
      * @return string

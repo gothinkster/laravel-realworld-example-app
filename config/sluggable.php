@@ -108,7 +108,7 @@ return [
      * and continue from there.
      */
 
-    'reserved' => null,
+    'reserved' => ['feed'],
 
     /**
      * Whether to update the slug value when a model is being

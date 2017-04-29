@@ -17,7 +17,7 @@ trait FollowableTrait
 
     public function follow(User $user)
     {
-        if (! $this->isFollowing($user))
+        if (! $this->isFollowing($user) && $this->id != $user->id)
         {
             return $this->following()->attach($user);
         }
