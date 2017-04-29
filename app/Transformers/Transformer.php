@@ -2,14 +2,16 @@
 
 namespace App\Transformers;
 
+use Illuminate\Support\Collection;
+
 abstract class Transformer
 {
     protected $resourceName = 'data';
 
-    public function collection(array $data)
+    public function collection(Collection $data)
     {
         return [
-            str_plural($this->resourceName) => array_map([$this, 'transform'], $data)
+            str_plural($this->resourceName) => $data->map([$this, 'transform'])
         ];
     }
 

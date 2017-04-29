@@ -41,7 +41,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Generate a JWT token for user.
+     * Generate a JWT token for the user.
      *
      * @return string
      */
@@ -50,11 +50,21 @@ class User extends Authenticatable
         return JWTAuth::fromUser($this);
     }
 
+    /**
+     * Get all the articles by the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function articles()
     {
         return $this->hasMany(Article::class);
     }
 
+    /**
+     * Get all the comments by the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function comments()
     {
         return $this->hasMany(Comment::class);
