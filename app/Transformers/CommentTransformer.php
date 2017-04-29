@@ -11,8 +11,8 @@ class CommentTransformer extends Transformer
         return [
             'id'        => $data['id'],
             'body'      => $data['body'],
-            'createdAt' => $data['created_at']->toIso8601String(),
-            'updatedAt' => $data['updated_at']->toIso8601String(),
+            'createdAt' => $data['created_at']->toAtomString(),
+            'updatedAt' => $data['updated_at']->toAtomString(),
             'author' => [
                 'username'  => $data['user']['username'],
                 'bio'       => $data['user']['bio'],

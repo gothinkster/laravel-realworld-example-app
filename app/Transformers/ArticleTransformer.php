@@ -12,10 +12,10 @@ class ArticleTransformer extends Transformer
             'slug'              => $data['slug'],
             'title'             => $data['title'],
             'description'       => $data['description'],
-            'tagList'           => $data['tagList'],
             'body'              => $data['body'],
-            'createdAt'         => $data['created_at']->toIso8601String(),
-            'updatedAt'         => $data['updated_at']->toIso8601String(),
+            'tagList'           => $data['tagList'],
+            'createdAt'         => $data['created_at']->toAtomString(),
+            'updatedAt'         => $data['updated_at']->toAtomString(),
             'favorited'         => $data['favorited'],
             'favoritesCount'    => $data['favoritesCount'],
             'author' => [
