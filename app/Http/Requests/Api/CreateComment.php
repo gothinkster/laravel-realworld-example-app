@@ -22,7 +22,7 @@ class CreateComment extends ApiRequest
     public function rules()
     {
         return [
-            //
+            'body' => 'required|string',
         ];
     }
 }

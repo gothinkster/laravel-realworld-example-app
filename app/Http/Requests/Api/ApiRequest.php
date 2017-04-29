@@ -18,15 +18,14 @@ class ApiRequest extends FormRequest
     }
 
     /**
-     * Format the errors from the given Validator instance.
+     * Get the validation rules that apply to the request.
      *
-     * @param Validator|\Illuminate\Contracts\Validation\Validator $validator
      * @return array
      */
-    protected function formatErrors(Validator $validator)
+    public function rules()
     {
         return [
-            "errors" => $validator->getMessageBag()->toArray()
+            //
         ];
     }
 }

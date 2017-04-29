@@ -6,6 +6,7 @@ use App\Tag;
 use App\Article;
 use App\Http\Requests\Api\CreateArticle;
 use App\Http\Requests\Api\UpdateArticle;
+use App\Http\Requests\Api\DeleteArticle;
 use App\Transformers\ArticleTransformer;
 
 class ArticleController extends ApiController
@@ -20,6 +21,7 @@ class ArticleController extends ApiController
 
     public function index()
     {
+        // WIP
         $articles = Article::latest()->get();
 
         return $this->respondWithTransformer($articles);
@@ -58,11 +60,17 @@ class ArticleController extends ApiController
 
     public function update(UpdateArticle $request, Article $article)
     {
-        //
+        if ($request->has('article')) {
+            $article->update($request->get('article'));
+        }
+
+        return $this->respondWithTransformer($article);
     }
 
-    public function destroy(Article $article)
+    public function destroy(DeleteArticle $request, Article $article)
     {
-        //
+        $article->delete();
+
+        return $this->respondSuccess();
     }
 }

@@ -28,6 +28,11 @@ class ApiController extends Controller
         return $this->respond($data, $statusCode, $headers);
     }
 
+    protected function respondSuccess()
+    {
+        return $this->respond(null);
+    }
+
     protected function respondCreated($data)
     {
         return $this->respond($data, 201);
@@ -35,7 +40,7 @@ class ApiController extends Controller
 
     protected function respondNoContent()
     {
-        return $this->respond([], 204);
+        return $this->respond(null, 204);
     }
 
     public function respondError($message, $statusCode)

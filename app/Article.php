@@ -16,7 +16,7 @@ class Article extends Model
      * @var array
      */
     protected $fillable = [
-        'slug', 'title', 'description', 'body'
+        'title', 'description', 'body'
     ];
 
     /**
@@ -46,7 +46,7 @@ class Article extends Model
      */
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->latest();
     }
 
     /**
