@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Filters\ArticleFilter;
 use App\Tag;
 use App\Article;
 use App\Http\Requests\Api\CreateArticle;
@@ -19,11 +20,11 @@ class ArticleController extends ApiController
         $this->middleware('auth.api:optional')->only(['index', 'show']);
     }
 
-    public function index()
+    public function index(ArticleFilter $filter)
     {
         // WIP
-        $articles = Article::latest()->get();
-
+        $articles = Article::latest()->filter($filter)->get();
+        
         return $this->respondWithTransformer($articles);
     }
 

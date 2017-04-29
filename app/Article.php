@@ -2,13 +2,14 @@
 
 namespace App;
 
+use App\Filters\Filterable;
 use App\Traits\FavoritedTrait;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    use FavoritedTrait, Sluggable;
+    use Filterable, FavoritedTrait, Sluggable;
 
     /**
      * The attributes that are mass assignable.
