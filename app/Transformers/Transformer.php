@@ -2,6 +2,7 @@
 
 namespace App\Transformers;
 
+use App\Paginate\Paginator;
 use Illuminate\Support\Collection;
 
 abstract class Transformer
@@ -20,6 +21,21 @@ abstract class Transformer
         return [
             $this->resourceName => $this->transform($data)
         ];
+    }
+
+    public function paginate(Paginator $paginator)
+    {
+        $resourceName = str_plural($this->resourceName);
+
+        $countName = str_plural($this->resourceName) . 'Count';
+
+        $data = [
+            $resourceName => $paginator->getData()->map([$this, 'transform'])
+        ];
+
+        return array_merge($data, [
+            $countName => $paginator->getTotal()
+        ]);
     }
 
     public abstract function transform($data);

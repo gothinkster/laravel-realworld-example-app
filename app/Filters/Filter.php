@@ -16,7 +16,7 @@ abstract class Filter
         $this->request = $request;
     }
 
-    public function getFilterMethods()
+    protected function getFilterMethods()
     {
         $methods = array_diff(
             get_class_methods(static::class),
@@ -31,7 +31,7 @@ abstract class Filter
         return array_flatten($methods);
     }
 
-    public function getFilters()
+    protected function getFilters()
     {
         return $this->request->intersect($this->getFilterMethods());
     }

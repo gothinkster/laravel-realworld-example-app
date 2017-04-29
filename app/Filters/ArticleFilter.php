@@ -7,7 +7,7 @@ use App\User;
 
 class ArticleFilter extends Filter
 {
-    public function author($username)
+    protected function author($username)
     {
         $user = User::whereUsername($username)->first();
 
@@ -16,7 +16,7 @@ class ArticleFilter extends Filter
         return $this->builder->whereUserId($userId);
     }
 
-    public function favorited($username)
+    protected function favorited($username)
     {
         $user = User::whereUsername($username)->first();
 
@@ -25,7 +25,7 @@ class ArticleFilter extends Filter
         return $this->builder->find($articleIds);
     }
 
-    public function tag($name)
+    protected function tag($name)
     {
         $tag = Tag::whereName($name)->first();
 

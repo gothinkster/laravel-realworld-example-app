@@ -9,9 +9,9 @@ class ProfileTransformer extends Transformer
     public function transform($data)
     {
         return [
-            'username' => $data['username'],
-            'bio' => $data['bio'],
-            'image' => $data['image'],
+            'username'  => $data['username'],
+            'bio'       => $data['bio'],
+            'image'     => $data['image'],
             'following' => $data['following'],
         ];
     }

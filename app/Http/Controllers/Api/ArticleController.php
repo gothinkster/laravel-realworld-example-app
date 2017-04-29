@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Filters\ArticleFilter;
 use App\Tag;
 use App\Article;
+use App\Paginate\Paginator;
+use App\Filters\ArticleFilter;
 use App\Http\Requests\Api\CreateArticle;
 use App\Http\Requests\Api\UpdateArticle;
 use App\Http\Requests\Api\DeleteArticle;
@@ -22,10 +23,9 @@ class ArticleController extends ApiController
 
     public function index(ArticleFilter $filter)
     {
-        // WIP
-        $articles = Article::latest()->filter($filter)->get();
-        
-        return $this->respondWithTransformer($articles);
+        $articles = new Paginator(Article::latest()->filter($filter));
+
+        return $this->respondWithPagination($articles);
     }
 
     public function store(CreateArticle $request)
