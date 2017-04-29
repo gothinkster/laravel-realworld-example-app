@@ -19,11 +19,9 @@ Route::group(['namespace' => 'Api'], function () {
     Route::get('user', 'UserController@index');
     Route::match(['put', 'patch'], 'user', 'UserController@update');
 
-    Route::group(['prefix' => 'profiles'], function () {
-        Route::get('{user}', 'ProfileController@show');
-        Route::post('{user}/follow', 'ProfileController@follow');
-        Route::delete('{user}/follow', 'ProfileController@unFollow');
-    });
+    Route::get('profiles/{user}', 'ProfileController@show');
+    Route::post('profiles/{user}/follow', 'ProfileController@follow');
+    Route::delete('profiles/{user}/follow', 'ProfileController@unFollow');
 
     Route::get('articles/feed', 'FeedController@index');
     Route::post('articles/{article}/favorite', 'FavoriteController@add');

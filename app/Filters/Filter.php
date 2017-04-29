@@ -2,6 +2,7 @@
 
 namespace App\Filters;
 
+use ReflectionClass;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -18,17 +19,16 @@ abstract class Filter
 
     protected function getFilterMethods()
     {
-        $methods = array_diff(
-            get_class_methods(static::class),
-            [
-                '__construct',
-                'getFilterMethods',
-                'getFilters',
-                'apply',
-            ]
-        );
+        $class  = new ReflectionClass(static::class);
 
-        return array_flatten($methods);
+        $methods = array_map(function($method) use ($class) {
+            if ($method->class === $class->getName()) {
+                return $method->name;
+            }
+            return null;
+        }, $class->getMethods());
+
+        return array_filter($methods);
     }
 
     protected function getFilters()

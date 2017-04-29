@@ -24,7 +24,7 @@ class AuthenticateWithJWT extends BaseMiddleware
 
         try {
             if (! $user = $this->auth->parseToken('token')->authenticate()) {
-                return $this->respondError('User not found', 404);
+                return $this->respondError('JWT token error: User not found', 404);
             }
         } catch (TokenExpiredException $e) {
             return $this->respondError('Token has expired', $e->getStatusCode());
