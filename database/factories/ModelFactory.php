@@ -11,14 +11,45 @@
 |
 */
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\User::class, function (\Faker\Generator $faker) {
+
     static $password;
 
+    $password = $password ?: bcrypt('secret');
+
     return [
-        'name' => $faker->name,
+        'username' => str_replace('.', '', $faker->unique()->userName),
         'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
+        'password' => $password,
+        'bio' => $faker->sentence,
+        'image' => 'https://cdn.worldvectorlogo.com/logos/laravel.svg',
+    ];
+});
+
+$factory->define(App\Article::class, function (\Faker\Generator $faker) {
+
+    return [
+        'title' => $faker->sentence,
+        'description' => $faker->sentence(10),
+        'body' => $faker->paragraphs($faker->numberBetween(1, 3), true),
+    ];
+});
+
+$factory->define(App\Comment::class, function (\Faker\Generator $faker) {
+
+    static $users;
+
+    $users = $users ?: \App\User::all();
+
+    return [
+        'body' => $faker->paragraph($faker->numberBetween(1, 5)),
+        'user_id' => $users->random()->id,
+    ];
+});
+
+$factory->define(App\Tag::class, function (\Faker\Generator $faker) {
+
+    return [
+        'name' => $faker->unique()->word,
     ];
 });
