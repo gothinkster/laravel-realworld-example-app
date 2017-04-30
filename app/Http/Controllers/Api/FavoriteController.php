@@ -7,6 +7,11 @@ use App\Transformers\ArticleTransformer;
 
 class FavoriteController extends ApiController
 {
+    /**
+     * FavoriteController constructor.
+     *
+     * @param ArticleTransformer $transformer
+     */
     public function __construct(ArticleTransformer $transformer)
     {
         $this->transformer = $transformer;
@@ -14,6 +19,12 @@ class FavoriteController extends ApiController
         $this->middleware('auth.api');
     }
 
+    /**
+     * Favorite the article given by its slug and return the article if successful.
+     *
+     * @param Article $article
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function add(Article $article)
     {
         $user = auth()->user();
@@ -23,6 +34,12 @@ class FavoriteController extends ApiController
         return $this->respondWithTransformer($article);
     }
 
+    /**
+     * Unfavorite the article given by its slug and return the article if successful.
+     *
+     * @param Article $article
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function remove(Article $article)
     {
         $user = auth()->user();

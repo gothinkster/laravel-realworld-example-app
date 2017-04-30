@@ -10,6 +10,11 @@ use App\Transformers\CommentTransformer;
 
 class CommentController extends ApiController
 {
+    /**
+     * CommentController constructor.
+     *
+     * @param CommentTransformer $transformer
+     */
     public function __construct(CommentTransformer $transformer)
     {
         $this->transformer = $transformer;
@@ -18,6 +23,12 @@ class CommentController extends ApiController
         $this->middleware('auth.api:optional')->only('index');
     }
 
+    /**
+     * Get all the comments of the article given by its slug.
+     *
+     * @param Article $article
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(Article $article)
     {
         $comments = $article->comments()->get();
@@ -25,6 +36,13 @@ class CommentController extends ApiController
         return $this->respondWithTransformer($comments);
     }
 
+    /**
+     * Add a comment to the article given by its slug and return the comment if successful.
+     *
+     * @param CreateComment $request
+     * @param Article $article
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(CreateComment $request, Article $article)
     {
         $comment = $article->comments()->create([
@@ -35,6 +53,14 @@ class CommentController extends ApiController
         return $this->respondWithTransformer($comment);
     }
 
+    /**
+     * Delete the comment given by its id.
+     *
+     * @param DeleteComment $request
+     * @param $article
+     * @param Comment $comment
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy(DeleteComment $request, $article, Comment $comment)
     {
         $comment->delete();

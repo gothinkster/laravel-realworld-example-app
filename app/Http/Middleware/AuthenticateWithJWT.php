@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * Custom JWT authentication middleware since the original package does
+ * not have a configurable option to change the authorization token name.
+ *
+ * The token name by default is set to 'bearer'.
+ * The default middleware provided does not have any flexibility to
+ * change the token name.
+ *
+ * This project api spec requires us to use the token name 'token'.
+ */
+
 namespace App\Http\Middleware;
 
 use Closure;
@@ -24,15 +35,15 @@ class AuthenticateWithJWT extends BaseMiddleware
 
         try {
             if (! $user = $this->auth->parseToken('token')->authenticate()) {
-                return $this->respondError('JWT token error: User not found', 404);
+                return $this->respondError('JWT error: User not found', 404);
             }
         } catch (TokenExpiredException $e) {
-            return $this->respondError('Token has expired', $e->getStatusCode());
+            return $this->respondError('JWT error: Token has expired', $e->getStatusCode());
         } catch (TokenInvalidException $e) {
-            return $this->respondError('Token is invalid', $e->getStatusCode());
+            return $this->respondError('JWT error: Token is invalid', $e->getStatusCode());
         } catch (JWTException $e) {
             if ($optional === null) {
-                return $this->respondError('Token is absent', $e->getStatusCode());
+                return $this->respondError('JWT error: Token is absent', $e->getStatusCode());
             }
         }
 

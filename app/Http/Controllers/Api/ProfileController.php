@@ -7,6 +7,11 @@ use App\Transformers\ProfileTransformer;
 
 class ProfileController extends ApiController
 {
+    /**
+     * ProfileController constructor.
+     *
+     * @param ProfileTransformer $transformer
+     */
     public function __construct(ProfileTransformer $transformer)
     {
         $this->transformer = $transformer;
@@ -15,11 +20,23 @@ class ProfileController extends ApiController
         $this->middleware('auth.api:optional')->only('show');
     }
 
+    /**
+     * Get the profile of the user given by their username
+     *
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show(User $user)
     {
         return $this->respondWithTransformer($user);
     }
 
+    /**
+     * Follow the user given by their username and return the user if successful.
+     *
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function follow(User $user)
     {
         $authenticatedUser = auth()->user();
@@ -29,6 +46,12 @@ class ProfileController extends ApiController
         return $this->respondWithTransformer($user);
     }
 
+    /**
+     * Unfollow the user given by their username and return the user if successful.
+     *
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function unFollow(User $user)
     {
         $authenticatedUser = auth()->user();
