@@ -7,8 +7,19 @@ use Illuminate\Support\Collection;
 
 abstract class Transformer
 {
+    /**
+     * Resource name of the json object.
+     *
+     * @var string
+     */
     protected $resourceName = 'data';
 
+    /**
+     * Transform a collection of items.
+     *
+     * @param Collection $data
+     * @return array
+     */
     public function collection(Collection $data)
     {
         return [
@@ -16,6 +27,12 @@ abstract class Transformer
         ];
     }
 
+    /**
+     * Transform a single item.
+     *
+     * @param $data
+     * @return array
+     */
     public function item($data)
     {
         return [
@@ -23,6 +40,12 @@ abstract class Transformer
         ];
     }
 
+    /**
+     * Transform a paginated item.
+     *
+     * @param Paginator $paginator
+     * @return array
+     */
     public function paginate(Paginator $paginator)
     {
         $resourceName = str_plural($this->resourceName);
@@ -38,5 +61,11 @@ abstract class Transformer
         ]);
     }
 
+    /**
+     * Apply the transformation.
+     *
+     * @param $data
+     * @return mixed
+     */
     public abstract function transform($data);
 }

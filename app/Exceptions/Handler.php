@@ -53,11 +53,12 @@ class Handler extends ExceptionHandler
         return parent::render($request, $exception);
     }
 
+
     /**
      * Get the json response for the exception.
      *
-     * @param \Exception $exception
-     * @return \Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
+     * @param Exception $exception
+     * @return \Illuminate\Http\JsonResponse
      */
     protected function getJsonResponse(Exception $exception)
     {
@@ -66,11 +67,7 @@ class Handler extends ExceptionHandler
         if ($exception instanceof ValidationException) {
             $validationErrors = $exception->validator->errors()->getMessages();
 
-            $response = [
-                'errors' => $validationErrors
-            ];
-
-            return response()->json($response, 422);
+            return response()->json(['errors' => $validationErrors], 422);
         }
 
         $statusCode = $this->getStatusCode($exception);
@@ -89,11 +86,7 @@ class Handler extends ExceptionHandler
             $errors['trace'] = explode("\n", $exception->getTraceAsString());
         }
 
-        $response = [
-            'error' => $errors
-        ];
-
-        return response()->json($response, $statusCode);
+        return response()->json(['errors' => $errors], $statusCode);
     }
 
     /**

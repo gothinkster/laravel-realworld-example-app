@@ -49,7 +49,7 @@ class AuthenticateWithJWT extends BaseMiddleware
     protected function respondError($message, $statusCode)
     {
         return response()->json([
-            'error' => [
+            'errors' => [
                 'message' => $message,
                 'status_code' => $statusCode
             ]

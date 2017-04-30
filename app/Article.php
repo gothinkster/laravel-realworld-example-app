@@ -6,7 +6,6 @@ use App\Filters\Filterable;
 use App\Traits\FavoritedTrait;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Schema\Builder;
 
 class Article extends Model
 {
@@ -26,10 +25,12 @@ class Article extends Model
      *
      * @var array
      */
-    protected $with = ['tags'];
+    protected $with = [
+        'tags'
+    ];
 
     /**
-     * Get a list of tags that belong to the article.
+     * Get the list of tags attached to the article.
      *
      * @return array
      */
@@ -39,7 +40,7 @@ class Article extends Model
     }
 
     /**
-     * Load all required relationships with only necessary content
+     * Load all required relationships with only necessary content.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder

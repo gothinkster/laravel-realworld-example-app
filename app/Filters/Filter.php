@@ -8,15 +8,31 @@ use Illuminate\Database\Eloquent\Builder;
 
 abstract class Filter
 {
+    /**
+     * @var \Illuminate\Http\Request
+     */
     protected $request;
 
+    /**
+     * @var \Illuminate\Database\Eloquent\Builder
+     */
     protected $builder;
 
+    /**
+     * Filter constructor.
+     *
+     * @param \Illuminate\Http\Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
     }
 
+    /**
+     * Get all the available filter methods.
+     *
+     * @return array
+     */
     protected function getFilterMethods()
     {
         $class  = new ReflectionClass(static::class);
@@ -31,11 +47,22 @@ abstract class Filter
         return array_filter($methods);
     }
 
+    /**
+     * Get all the filters that can be applied.
+     *
+     * @return array
+     */
     protected function getFilters()
     {
         return $this->request->intersect($this->getFilterMethods());
     }
 
+    /**
+     * Apply all the requested filters if available.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function apply(Builder $builder)
     {
         $this->builder = $builder;

@@ -31,7 +31,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Set the password using bcrypt hasher.
+     * Set the password using bcrypt hash.
      *
      * @param $value
      */
@@ -71,7 +71,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get all the following user articles.
+     * Get all the articles of the following users.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
