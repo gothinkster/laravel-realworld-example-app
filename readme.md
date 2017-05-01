@@ -12,7 +12,7 @@ This repo is functionality complete — PR's and issues welcome!
 
 Clone the repository
 
-    git clone git@github.com:SandeeshS/laravel-realworld-example-app.git
+    git clone git@github.com:gothinkster/laravel-realworld-example-app.git
 
 Switch to the repo folder
 
@@ -46,7 +46,7 @@ You can now access the server at http://localhost:8000
 
 **TL;DR command list**
 
-    git clone git@github.com:SandeeshS/laravel-realworld-example-app.git
+    git clone git@github.com:gothinkster/laravel-realworld-example-app.git
     cd laravel-realworld-example-app
     composer install
     cp .env.example .env
