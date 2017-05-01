@@ -34,9 +34,9 @@ class ArticleFilter extends Filter
     {
         $user = User::whereUsername($username)->first();
 
-        $articleIds = $user ? $user->favorites()->pluck('id')->toArray() : null;
+        $articleIds = $user ? $user->favorites()->pluck('id')->toArray() : [];
 
-        return $this->builder->find($articleIds);
+        return $this->builder->whereIn('id', $articleIds);
     }
 
     /**
@@ -50,8 +50,8 @@ class ArticleFilter extends Filter
     {
         $tag = Tag::whereName($name)->first();
 
-        $articleIds = $tag ? $tag->articles()->pluck('article_id')->toArray() : null;
+        $articleIds = $tag ? $tag->articles()->pluck('article_id')->toArray() : [];
 
-        return $this->builder->find($articleIds);
+        return $this->builder->whereIn('id', $articleIds);
     }
 }
