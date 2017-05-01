@@ -34,7 +34,7 @@ Generate a new JWT authentication secret key
 
     php artisan jwt:generate
 
-Run the database migrations
+Run the database migrations (**Set the database connection in .env before migrating**)
 
     php artisan migrate
 
@@ -53,7 +53,7 @@ You can now access the server at http://localhost:8000
     php artisan key:generate
     php artisan jwt:generate 
     
-**Make sure you set the correct database connection information before running the migrations**
+**Make sure you set the correct database connection information before running the migrations** [Environment variables](#environment-variables)
 
     php artisan migrate
     php artisan serve
@@ -90,10 +90,12 @@ More information regarding the project can be found here https://github.com/goth
 
 - [eloquent-sluggable](https://github.com/cviebrock/eloquent-sluggable) - For auto generation of unique slugs
 - [jwt-auth](https://github.com/tymondesigns/jwt-auth) - For authentication using JSON Web Tokens
+- [laravel-cors](https://github.com/barryvdh/laravel-cors) - For handling Cross-Origin Resource Sharing (CORS)
 
 ## Folders
 
 - `app` - Contains all the Eloquent models
+- `app/config` - Contains all the application configuration files
 - `app/Filters` - Contains the query filters used for filtering api requests
 - `app/Http/Controllers/Api` - Contains all the api controllers
 - `app/Http/Middleware` - Contains the JWT auth middleware
@@ -104,6 +106,12 @@ More information regarding the project can be found here https://github.com/goth
 - `database/migrations` - Contains all the database migrations
 - `database/seeds` - Contains the database seeder
 - `routes` - Contains all the api routes defined in api.php file
+
+## Environment variables
+
+- `.env` - Environment variables can be set in this file
+
+***Note*** : You can quickly set the database information and other variables in this file and have the application fully working.
 
 ----------
 
@@ -125,14 +133,25 @@ Request headers
 | Yes      	| X-Requested-With 	| XMLHttpRequest   	|
 | Optional 	| Authorization    	| Token {JWT}      	|
 
-Refer to the [api specification](#api-specification) for more info.
+Refer the [api specification](#api-specification) for more info.
 
- ----------
+----------
  
- # Authentication
+# Authentication
  
- This applications uses JSON Web Token (JWT) to handle authentication. The token is passed with each request using the `Authorization` header with `Token` scheme. The JWT authentication middleware handles the validation and authentication of the token.  Please check the following sources to learn more about JWT.
+This applications uses JSON Web Token (JWT) to handle authentication. The token is passed with each request using the `Authorization` header with `Token` scheme. The JWT authentication middleware handles the validation and authentication of the token. Please check the following sources to learn more about JWT.
  
-  - https://jwt.io/introduction/
-  - https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html
+- https://jwt.io/introduction/
+- https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html
+
+----------
+
+# Cross-Origin Resource Sharing (CORS)
+ 
+This applications has CORS enabled by default on all API endpoints. The default configuration allows requests from `http://localhost:3000` and `http://localhost:4200` to help speed up your frontend testing. The CORS allowed origins can be changed by setting them in the config file. Please check the following sources to learn more about CORS.
+ 
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
+- https://en.wikipedia.org/wiki/Cross-origin_resource_sharing
+- https://www.w3.org/TR/cors
+
   

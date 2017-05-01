@@ -100,7 +100,7 @@ class DummyDataSeeder extends Seeder
 
         $users->random((int) $users->count() * $this->usersWithFavoritesRatio)
             ->each(function ($user) use($faker, $articles) {
-                $articles->random($faker->numberBetween(1, $articles->count()))
+                $articles->random($faker->numberBetween(1, (int) $articles->count() * 0.5))
                     ->each(function ($article) use ($user) {
                         $user->favorite($article);
                     });
@@ -109,7 +109,7 @@ class DummyDataSeeder extends Seeder
         $users->random((int) $users->count() * $this->usersWithFollowingRatio)
             ->each(function ($user) use($faker, $users) {
                 $users->except($user->id)
-                    ->random($faker->numberBetween(1, $users->count() - 1))
+                    ->random($faker->numberBetween(1, (int) ($users->count() - 1) * 0.2))
                     ->each(function ($userToFollow) use ($user) {
                         $user->follow($userToFollow);
                     });

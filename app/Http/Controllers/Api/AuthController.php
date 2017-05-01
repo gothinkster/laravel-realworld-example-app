@@ -32,7 +32,7 @@ class AuthController extends ApiController
         $credentials = $credentials['user'];
 
         if (! Auth::once($credentials)) {
-            return $this->respondUnauthorized('Invalid credentials');
+            return $this->respondFailedLogin();
         }
 
         return $this->respondWithTransformer(auth()->user());

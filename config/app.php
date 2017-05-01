@@ -170,6 +170,7 @@ return [
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Http\Response;
+use Illuminate\Database\QueryException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
@@ -66,8 +67,13 @@ class Handler extends ExceptionHandler
      */
     protected function getJsonResponse(Exception $exception)
     {
+        $debugEnabled = config('app.debug');
+
         $exception = $this->prepareException($exception);
 
+        /*
+         * Handle validation errors thrown using ValidationException.
+         */
         if ($exception instanceof ValidationException) {
 
             $validationErrors = $exception->validator->errors()->getMessages();
@@ -93,9 +99,21 @@ class Handler extends ExceptionHandler
             return response()->json(['errors' => $validationErrors], 422);
         }
 
+        /*
+         * Handle database errors thrown using QueryException.
+         * Prevent sensitive information from leaking in the error message.
+         */
+        if ($exception instanceof QueryException) {
+            if ($debugEnabled) {
+                $message = $exception->getMessage();
+            } else {
+                $message = 'Internal Server Error';
+            }
+        }
+
         $statusCode = $this->getStatusCode($exception);
 
-        if (! $message = $exception->getMessage()) {
+        if (! isset($message) && ! ($message = $exception->getMessage())) {
             $message = sprintf('%d %s', $statusCode, Response::$statusTexts[$statusCode]);
         }
 
@@ -104,7 +122,7 @@ class Handler extends ExceptionHandler
             'status_code' => $statusCode,
         ];
 
-        if (config('app.debug')) {
+        if ($debugEnabled) {
             $errors['exception'] = get_class($exception);
             $errors['trace'] = explode("\n", $exception->getTraceAsString());
         }

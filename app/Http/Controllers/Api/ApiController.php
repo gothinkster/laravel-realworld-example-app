@@ -110,7 +110,7 @@ class ApiController extends Controller
     protected function respondError($message, $statusCode)
     {
         return $this->respond([
-            'error' => [
+            'errors' => [
                 'message' => $message,
                 'status_code' => $statusCode
             ]
@@ -148,6 +148,20 @@ class ApiController extends Controller
     protected function respondNotFound($message = 'Not Found')
     {
         return $this->respondError($message, 404);
+    }
+
+    /**
+     * Respond with failed login.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondFailedLogin()
+    {
+        return $this->respond([
+            'errors' => [
+                'email or password' => 'is invalid',
+            ]
+        ], 422);
     }
 
     /**
