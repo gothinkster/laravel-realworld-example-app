@@ -69,7 +69,26 @@ class Handler extends ExceptionHandler
         $exception = $this->prepareException($exception);
 
         if ($exception instanceof ValidationException) {
+
             $validationErrors = $exception->validator->errors()->getMessages();
+
+            /*
+             * Laravel validation error format example
+             * "attribute" => [
+             *      "The attribute failed validation."
+             * ]
+             *
+             * What we need as per the api spec
+             * "attribute" => [
+             * 	    "failed validation."
+             * ]
+             */
+
+            $validationErrors = array_map(function($error) {
+                return array_map(function($message) {
+                    return remove_words($message, 2);
+                }, $error);
+            }, $validationErrors);
 
             return response()->json(['errors' => $validationErrors], 422);
         }
