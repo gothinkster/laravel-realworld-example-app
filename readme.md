@@ -2,13 +2,16 @@
 
 > ### Example Laravel codebase containing real world examples (CRUD, auth, advanced patterns and more) that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) spec and API.
 
-This repo is functionality complete — PR's and issues welcome!
+This repo is functionality complete — PRs and issues welcome!
 
 ----------
 
 # Getting started
 
 ## Installation
+
+Please check the official laravel installation guide for server requirements before you start. [Official Documentation](https://laravel.com/docs/5.4/installation#installation)
+
 
 Clone the repository
 
@@ -153,5 +156,3 @@ This applications has CORS enabled by default on all API endpoints. The default 
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
 - https://en.wikipedia.org/wiki/Cross-origin_resource_sharing
 - https://www.w3.org/TR/cors
-
-  
