@@ -37,7 +37,7 @@ class User extends Authenticatable
      */
     public function setPasswordAttribute($value)
     {
-        $this->attributes['password'] = bcrypt($value);
+        $this->attributes['password'] = (password_get_info($value)['algo'] === 0) ? bcrypt($value) : $value;
     }
 
     /**

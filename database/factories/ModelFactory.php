@@ -13,14 +13,10 @@
 
 $factory->define(App\User::class, function (\Faker\Generator $faker) {
 
-    static $password;
-
-    $password = $password ?: bcrypt('secret');
-
     return [
         'username' => str_replace('.', '', $faker->unique()->userName),
         'email' => $faker->unique()->safeEmail,
-        'password' => $password,
+        'password' => 'secret',
         'bio' => $faker->sentence,
         'image' => 'https://cdn.worldvectorlogo.com/logos/laravel.svg',
     ];
