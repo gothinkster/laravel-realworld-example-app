@@ -26,10 +26,10 @@ class LoginTest extends TestCase
         $response->assertStatus(200)
             ->assertJson([
             'user' => [
-                'email'     => $user->email,
-                'username'  => $user->username,
-                'bio'       => $user->bio,
-                'image'     => $user->image,
+                'email' => $user->email,
+                'username' => $user->username,
+                'bio' => $user->bio,
+                'image' => $user->image,
             ]
         ]);
 

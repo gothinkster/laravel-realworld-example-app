@@ -25,10 +25,10 @@ class RegistrationTest extends TestCase
         $response->assertStatus(200)
             ->assertJson([
             'user' => [
-                'email'     => 'test@test.com',
-                'username'  => 'test',
-                'bio'       => null,
-                'image'     => null,
+                'email' => 'test@test.com',
+                'username' => 'test',
+                'bio' => null,
+                'image' => null,
             ]
         ]);
 
