@@ -32,7 +32,7 @@ class RegistrationTest extends TestCase
             ]
         ]);
 
-        $this->assertArrayHasKey('token', $response->json()['user']);
+        $this->assertArrayHasKey('token', $response->json()['user'], 'Token not found');
     }
 
     /** @test */

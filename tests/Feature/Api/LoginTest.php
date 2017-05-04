@@ -33,7 +33,7 @@ class LoginTest extends TestCase
             ]
         ]);
 
-        $this->assertArrayHasKey('token', $response->json()['user']);
+        $this->assertArrayHasKey('token', $response->json()['user'], 'Token not found');
 
         $this->assertTrue(
             (count(explode('.', $response->json()['user']['token'])) === 3),
