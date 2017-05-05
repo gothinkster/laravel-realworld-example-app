@@ -7,7 +7,6 @@
     "require": {
         "php": ">=5.6.4",
         "barryvdh/laravel-cors": "^0.9.2",
-        "cviebrock/eloquent-sluggable": "^4.2",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "tymon/jwt-auth": "0.5.*"
