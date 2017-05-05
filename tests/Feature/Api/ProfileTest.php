@@ -9,30 +9,71 @@ class ProfileTest extends TestCase
 {
     use DatabaseMigrations;
 
-    protected $users;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->users = factory(\App\User::class)->times(2)->create();
-    }
-
     /** @test  */
     public function it_returns_a_valid_profile()
     {
-        $user = $this->users[0];
-
-        $response = $this->getJson('/api/profiles/' . $user->username);
+        $response = $this->getJson("/api/profiles/{$this->user->username}");
 
         $response->assertStatus(200)
             ->assertJson([
                 'profile' => [
-                    'username' => $user->username,
-                    'bio' => $user->bio,
-                    'image' => $user->image,
+                    'username' => $this->user->username,
+                    'bio' => $this->user->bio,
+                    'image' => $this->user->image,
                     'following' => false,
                 ]
             ]);
+    }
+
+    /** @test  */
+    public function it_returns_a_not_found_error_on_invalid_profile()
+    {
+        $response = $this->getJson('/api/profiles/somerandomusername');
+
+        $response->assertStatus(404);
+    }
+
+    /** @test  */
+    public function it_returns_the_profile_following_property_accordingly_when_followed_and_unfollowed()
+    {
+        $response = $this->postJson("/api/profiles/{$this->user->username}/follow", [], $this->headers);
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'profile' => [
+                    'username' => $this->user->username,
+                    'bio' => $this->user->bio,
+                    'image' => $this->user->image,
+                    'following' => true,
+                ]
+            ]);
+
+        $this->assertTrue($this->loggedInUser->isFollowing($this->user), 'Failed to follow user');
+
+        $response = $this->deleteJson("/api/profiles/{$this->user->username}/follow", [], $this->headers);
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'profile' => [
+                    'username' => $this->user->username,
+                    'bio' => $this->user->bio,
+                    'image' => $this->user->image,
+                    'following' => false,
+                ]
+            ]);
+
+        $this->assertFalse($this->loggedInUser->isFollowing($this->user), 'Failed to unfollow user');
+    }
+
+    /** @test  */
+    public function it_returns_a_not_found_error_when_trying_to_follow_and_unfollow_a_invalid_user()
+    {
+        $response = $this->postJson("/api/profiles/somerandomusername/follow", [], $this->headers);
+
+        $response->assertStatus(404);
+
+        $response = $this->deleteJson("/api/profiles/somerandomusername/follow", [], $this->headers);
+
+        $response->assertStatus(404);
     }
 }

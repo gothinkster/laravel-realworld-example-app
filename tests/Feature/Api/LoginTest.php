@@ -12,11 +12,9 @@ class LoginTest extends TestCase
     /** @test  */
     public function it_returns_a_user_with_valid_token_on_valid_login()
     {
-        $user = factory(\App\User::class)->create();
-
         $data = [
             'user' => [
-                'email' => $user->email,
+                'email' => $this->user->email,
                 'password' => 'secret',
             ]
         ];
@@ -26,10 +24,10 @@ class LoginTest extends TestCase
         $response->assertStatus(200)
             ->assertJson([
             'user' => [
-                'email' => $user->email,
-                'username' => $user->username,
-                'bio' => $user->bio,
-                'image' => $user->image,
+                'email' => $this->user->email,
+                'username' => $this->user->username,
+                'bio' => $this->user->bio,
+                'image' => $this->user->image,
             ]
         ]);
 

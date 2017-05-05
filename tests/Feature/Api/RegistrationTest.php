@@ -78,12 +78,10 @@ class RegistrationTest extends TestCase
     /** @test */
     public function it_returns_username_and_email_taken_validation_errors_when_using_duplicate_values_on_registration()
     {
-        $user = factory(\App\User::class)->create();
-
         $data = [
             'user' => [
-                'username' => $user->username,
-                'email' => $user->email,
+                'username' => $this->user->username,
+                'email' => $this->user->email,
                 'password' => 'secret',
             ]
         ];

@@ -9,21 +9,10 @@ class UserTest extends TestCase
 {
     use DatabaseMigrations;
 
-    protected $loggedInUser;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->loggedInUser = factory(\App\User::class)->create();
-    }
-
     /** @test  */
     public function it_returns_the_current_user_when_logged_in()
     {
-        $response = $this->getJson('/api/user', [
-            'Authorization' => 'Token ' . $this->loggedInUser->token
-        ]);
+        $response = $this->getJson('/api/user', $this->headers);
 
         $response->assertStatus(200)
             ->assertJson([
@@ -72,9 +61,7 @@ class UserTest extends TestCase
             ]
         ];
 
-        $response = $this->putJson('/api/user', $data, [
-            'Authorization' => 'Token ' . $this->loggedInUser->token
-        ]);
+        $response = $this->putJson('/api/user', $data, $this->headers);
 
         $response->assertStatus(200)
             ->assertJson([
@@ -102,9 +89,7 @@ class UserTest extends TestCase
             ]
         ];
 
-        $response = $this->putJson('/api/user', $data, [
-            'Authorization' => 'Token ' . $this->loggedInUser->token
-        ]);
+        $response = $this->putJson('/api/user', $data, $this->headers);
 
         $response->assertStatus(422)
             ->assertJson([
@@ -120,19 +105,15 @@ class UserTest extends TestCase
     /** @test  */
     public function it_returns_username_and_email_taken_validation_errors_when_using_duplicate_values_on_updating()
     {
-        $user = factory(\App\User::class)->create();
-
         $data = [
             'user' => [
-                'username' => $user->username,
-                'email' => $user->email,
+                'username' => $this->user->username,
+                'email' => $this->user->email,
                 'password' => 'secret',
             ]
         ];
 
-        $response = $this->putJson('/api/user', $data, [
-            'Authorization' => 'Token ' . $this->loggedInUser->token
-        ]);
+        $response = $this->putJson('/api/user', $data, $this->headers);
 
         $response->assertStatus(422)
             ->assertJson([
