@@ -27,13 +27,13 @@ class UserTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJson([
-            'user' => [
-                'email' => $this->loggedInUser->email,
-                'username' => $this->loggedInUser->username,
-                'bio' => $this->loggedInUser->bio,
-                'image' => $this->loggedInUser->image,
-            ]
-        ]);
+                'user' => [
+                    'email' => $this->loggedInUser->email,
+                    'username' => $this->loggedInUser->username,
+                    'bio' => $this->loggedInUser->bio,
+                    'image' => $this->loggedInUser->image,
+                ]
+            ]);
     }
 
     /** @test  */
