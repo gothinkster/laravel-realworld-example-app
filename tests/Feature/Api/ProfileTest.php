@@ -76,4 +76,16 @@ class ProfileTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    /** @test  */
+    public function it_returns_an_unauthorized_error_when_trying_to_follow_or_unfollow_without_logging_in()
+    {
+        $response = $this->postJson("/api/profiles/{$this->user->username}/follow");
+
+        $response->assertStatus(401);
+
+        $response = $this->deleteJson("/api/profiles/{$this->user->username}/follow");
+
+        $response->assertStatus(401);
+    }
 }

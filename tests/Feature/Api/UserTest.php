@@ -41,7 +41,7 @@ class UserTest extends TestCase
     }
 
     /** @test  */
-    public function it_returns_the_unauthorized_error_when_not_logged_in()
+    public function it_returns_an_unauthorized_error_when_not_logged_in()
     {
         $response = $this->getJson('/api/user');
 
