@@ -9,7 +9,7 @@ class UserTest extends TestCase
 {
     use DatabaseMigrations;
 
-    /** @test  */
+    /** @test */
     public function it_returns_the_current_user_when_logged_in()
     {
         $response = $this->getJson('/api/user', $this->headers);
@@ -25,7 +25,7 @@ class UserTest extends TestCase
             ]);
     }
 
-    /** @test  */
+    /** @test */
     public function it_returns_invalid_token_error_when_using_a_wrong_token()
     {
         $response = $this->getJson('/api/user', [
@@ -40,7 +40,7 @@ class UserTest extends TestCase
             ]);
     }
 
-    /** @test  */
+    /** @test */
     public function it_returns_an_unauthorized_error_when_not_logged_in()
     {
         $response = $this->getJson('/api/user');
@@ -48,7 +48,7 @@ class UserTest extends TestCase
         $response->assertStatus(401);
     }
 
-    /** @test  */
+    /** @test */
     public function it_returns_the_updated_user_on_updating()
     {
         $data = [
@@ -76,7 +76,7 @@ class UserTest extends TestCase
         $this->assertTrue(auth()->once($data['user']), 'Password update failed');
     }
 
-    /** @test  */
+    /** @test */
     public function it_returns_appropriate_field_validation_errors_on_updating()
     {
         $data = [
@@ -102,7 +102,7 @@ class UserTest extends TestCase
             ]);
     }
 
-    /** @test  */
+    /** @test */
     public function it_returns_username_and_email_taken_validation_errors_when_using_duplicate_values_on_updating()
     {
         $data = [

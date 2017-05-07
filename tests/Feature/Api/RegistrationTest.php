@@ -9,7 +9,7 @@ class RegistrationTest extends TestCase
 {
     use DatabaseMigrations;
 
-    /** @test  */
+    /** @test */
     public function it_returns_user_with_token_on_valid_registration()
     {
         $data = [

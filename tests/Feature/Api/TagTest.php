@@ -9,7 +9,7 @@ class TagTest extends TestCase
 {
     use DatabaseMigrations;
 
-    /** @test  */
+    /** @test */
     public function it_returns_an_array_of_tags()
     {
         $tags = factory(\App\Tag::class)->times(5)->create();
@@ -22,7 +22,7 @@ class TagTest extends TestCase
             ]);
     }
 
-    /** @test  */
+    /** @test */
     public function it_returns_an_empty_array_of_tags_when_there_are_none_in_database()
     {
         $response = $this->getJson('/api/tags');
