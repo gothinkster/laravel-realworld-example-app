@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use App\Slug;
+
 trait HasSlug
 {
     /**
@@ -14,8 +16,13 @@ trait HasSlug
     public function setAttribute($key, $value)
     {
         if($key == $this->getSlugSourceColumn()) {
+            $slug = (new Slug($value))
+                ->uniqueFor($this)
+                ->without($this->getBannedSlugValues())
+                ->generate();
+
             $this->attributes[$this->getSlugSourceColumn()] = $value;
-            $this->attributes[$this->getSlugColumn()] = str_slug($value);
+            $this->attributes[$this->getSlugColumn()] = $slug;
         }
 
         return parent::setAttribute($key, $value);
@@ -38,4 +45,15 @@ trait HasSlug
     {
         return 'slug';
     }
+
+    /**
+     * Get list of values wich are not allowed
+     *
+     * @return array
+     */
+    public function getBannedSlugValues()
+    {
+        return [];
+    }
+
 }

@@ -107,4 +107,14 @@ class Article extends Model
     {
         return 'title';
     }
+
+    /**
+     * Get list of values which are not allowed for this resource
+     *
+     * @return array
+     */
+    public function getBannedSlugValues()
+    {
+        return ['feed'];
+    }
 }
