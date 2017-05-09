@@ -5,7 +5,7 @@ namespace Tests\Feature\Api;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class ArticleTest extends TestCase
+class ArticleReadTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -20,7 +20,7 @@ class ArticleTest extends TestCase
                 'articlesCount' => 0
             ]);
     }
-    
+
     /** @test */
     public function it_returns_the_articles_and_correct_total_article_count()
     {
@@ -55,6 +55,39 @@ class ArticleTest extends TestCase
                 ],
                 'articlesCount' => 2
             ]);
+    }
+
+    /** @test */
+    public function it_returns_the_article_by_slug_if_valid_and_not_found_error_if_invalid()
+    {
+        $article = $this->user->articles()->save(factory(\App\Article::class)->make());
+
+        $response = $this->getJson("/api/articles/{$article->slug}");
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'article' => [
+                    'slug' => $article->slug,
+                    'title' => $article->title,
+                    'description' => $article->description,
+                    'body' => $article->body,
+                    'tagList' => $article->tagList,
+                    'createdAt' => $article->created_at->toAtomString(),
+                    'updatedAt' => $article->updated_at->toAtomString(),
+                    'favorited' => false,
+                    'favoritesCount' => 0,
+                    'author' => [
+                        'username' => $this->user->username,
+                        'bio' => $this->user->bio,
+                        'image' => $this->user->image,
+                        'following' => false,
+                    ]
+                ]
+            ]);
+
+        $response = $this->getJson('/api/articles/randominvalidslug');
+
+        $response->assertStatus(404);
     }
 
     /** @test */
@@ -104,15 +137,4 @@ class ArticleTest extends TestCase
                 'articlesCount' => 1
             ]);
     }
-
-    // Add article returns valid article
-    // Unique slug generation.
-    // Correct validation errors on adding article
-    // Get article by slug
-    // Not found error on invalid slug
-    // Correct limit and offset
-    // Unauthorized error on adding article with no auth
-    // Unauthorized error on updating article with no auth
-    // Unauthorized error on removing article with no auth
-    // Forbidden error on removing article by another user
 }
