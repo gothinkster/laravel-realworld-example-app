@@ -36,6 +36,19 @@ class FeedTest extends TestCase
                     [
                         'slug' => $articles[0]->slug,
                         'title' => $articles[0]->title,
+                        'description' => $articles[0]->description,
+                        'body' => $articles[0]->body,
+                        'tagList' => $articles[0]->tagList,
+                        'createdAt' => $articles[0]->created_at->toAtomString(),
+                        'updatedAt' => $articles[0]->updated_at->toAtomString(),
+                        'favorited' => false,
+                        'favoritesCount' => 0,
+                        'author' => [
+                            'username' => $this->user->username,
+                            'bio' => $this->user->bio,
+                            'image' => $this->user->image,
+                            'following' => true,
+                        ]
                     ],
                     [
                         'slug' => $articles[1]->slug,
