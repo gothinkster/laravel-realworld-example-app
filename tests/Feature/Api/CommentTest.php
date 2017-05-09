@@ -83,7 +83,7 @@ class CommentTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_a_forbidden_error_when_trying_remove_comments_by_others()
+    public function it_returns_a_forbidden_error_when_trying_to_remove_comments_by_others()
     {
         $comment = $this->article
             ->comments()
