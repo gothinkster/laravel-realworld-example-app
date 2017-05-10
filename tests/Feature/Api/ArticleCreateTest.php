@@ -94,15 +94,7 @@ class ArticleCreateTest extends TestCase
     /** @test */
     public function it_returns_an_unauthorized_error_when_trying_to_add_article_without_logging_in()
     {
-        $data = [
-            'article' => [
-                'title' => 'test title',
-                'description' => 'test description',
-                'body' => 'test body with random text',
-            ]
-        ];
-
-        $response = $this->postJson('/api/articles', $data);
+        $response = $this->postJson('/api/articles', []);
 
         $response->assertStatus(401);
     }

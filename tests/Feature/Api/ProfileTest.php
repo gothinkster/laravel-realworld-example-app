@@ -66,7 +66,7 @@ class ProfileTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_a_not_found_error_when_trying_to_follow_and_unfollow_a_invalid_user()
+    public function it_returns_a_not_found_error_when_trying_to_follow_and_unfollow_an_invalid_user()
     {
         $response = $this->postJson("/api/profiles/somerandomusername/follow", [], $this->headers);
 
