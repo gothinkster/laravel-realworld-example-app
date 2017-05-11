@@ -34,13 +34,13 @@ class FeedTest extends TestCase
             ->assertJson([
                 'articles' => [
                     [
-                        'slug' => $articles[0]->slug,
-                        'title' => $articles[0]->title,
-                        'description' => $articles[0]->description,
-                        'body' => $articles[0]->body,
-                        'tagList' => $articles[0]->tagList,
-                        'createdAt' => $articles[0]->created_at->toAtomString(),
-                        'updatedAt' => $articles[0]->updated_at->toAtomString(),
+                        'slug' => $articles[1]->slug,
+                        'title' => $articles[1]->title,
+                        'description' => $articles[1]->description,
+                        'body' => $articles[1]->body,
+                        'tagList' => $articles[1]->tagList,
+                        'createdAt' => $articles[1]->created_at->toAtomString(),
+                        'updatedAt' => $articles[1]->updated_at->toAtomString(),
                         'favorited' => false,
                         'favoritesCount' => 0,
                         'author' => [
@@ -51,8 +51,8 @@ class FeedTest extends TestCase
                         ]
                     ],
                     [
-                        'slug' => $articles[1]->slug,
-                        'title' => $articles[1]->title,
+                        'slug' => $articles[0]->slug,
+                        'title' => $articles[0]->title,
                     ]
                 ],
                 'articlesCount' => 2

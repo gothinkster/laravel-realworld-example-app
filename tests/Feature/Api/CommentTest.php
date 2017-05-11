@@ -67,13 +67,13 @@ class CommentTest extends TestCase
             ->assertJson([
                 'comments' => [
                     [
-                        'body' => $comments[0]['body'],
+                        'body' => $comments[1]['body'],
                         'author' => [
                             'username' => $this->user->username
                         ]
                     ],
                     [
-                        'body' => $comments[1]['body'],
+                        'body' => $comments[0]['body'],
                         'author' => [
                             'username' => $this->user->username
                         ]

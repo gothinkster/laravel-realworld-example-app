@@ -48,9 +48,9 @@ class ArticleFilterTest extends TestCase
             ->assertJson([
                 'articles' => [
                     [
-                        'slug' => $articles[0]->slug,
-                        'title' => $articles[0]->title,
-                        'tagList' => $articles[0]->tagList,
+                        'slug' => $articles[2]->slug,
+                        'title' => $articles[2]->title,
+                        'tagList' => $articles[2]->tagList,
                     ],
                     [
                         'slug' => $articles[1]->slug,
@@ -58,9 +58,9 @@ class ArticleFilterTest extends TestCase
                         'tagList' => $articles[1]->tagList,
                     ],
                     [
-                        'slug' => $articles[2]->slug,
-                        'title' => $articles[2]->title,
-                        'tagList' => $articles[2]->tagList,
+                        'slug' => $articles[0]->slug,
+                        'title' => $articles[0]->title,
+                        'tagList' => $articles[0]->tagList,
                     ],
                 ],
                 'articlesCount' => 3
@@ -99,8 +99,8 @@ class ArticleFilterTest extends TestCase
             ->assertJson([
                 'articles' => [
                     [
-                        'slug' => $articles[0]->slug,
-                        'title' => $articles[0]->title,
+                        'slug' => $articles[2]->slug,
+                        'title' => $articles[2]->title,
                         'author' => [
                             'username' => $this->user->username
                         ]
@@ -113,8 +113,8 @@ class ArticleFilterTest extends TestCase
                         ]
                     ],
                     [
-                        'slug' => $articles[2]->slug,
-                        'title' => $articles[2]->title,
+                        'slug' => $articles[0]->slug,
+                        'title' => $articles[0]->title,
                         'author' => [
                             'username' => $this->user->username
                         ]
@@ -158,8 +158,8 @@ class ArticleFilterTest extends TestCase
             ->assertJson([
                 'articles' => [
                     [
-                        'slug' => $articles[0]->slug,
-                        'title' => $articles[0]->title,
+                        'slug' => $articles[4]->slug,
+                        'title' => $articles[4]->title,
                         'author' => [
                             'username' => $this->loggedInUser->username
                         ]
@@ -172,8 +172,8 @@ class ArticleFilterTest extends TestCase
                         ]
                     ],
                     [
-                        'slug' => $articles[4]->slug,
-                        'title' => $articles[4]->title,
+                        'slug' => $articles[0]->slug,
+                        'title' => $articles[0]->title,
                         'author' => [
                             'username' => $this->loggedInUser->username
                         ]
