@@ -34,7 +34,7 @@ class ArticleController extends ApiController
      */
     public function index(ArticleFilter $filter)
     {
-        $articles = new Paginator(Article::latest()->loadRelations()->filter($filter));
+        $articles = new Paginator(Article::loadRelations()->filter($filter));
 
         return $this->respondWithPagination($articles);
     }

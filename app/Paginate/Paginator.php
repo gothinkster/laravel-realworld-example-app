@@ -35,7 +35,7 @@ class Paginator
 
         $this->total = $builder->count();
 
-        $this->data = $builder->skip($offset)->take($limit)->get();
+        $this->data = $builder->latest()->skip($offset)->take($limit)->get();
     }
 
     /**
