@@ -3,8 +3,8 @@
 namespace App;
 
 use App\Filters\Filterable;
+use App\Sluggable\HasSlug;
 use App\Traits\FavoritedTrait;
-use App\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model

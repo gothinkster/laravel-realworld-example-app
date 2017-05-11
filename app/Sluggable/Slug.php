@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Sluggable;
 
 use Illuminate\Database\Eloquent\Model;
 

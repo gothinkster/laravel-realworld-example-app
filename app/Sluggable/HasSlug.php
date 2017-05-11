@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Traits;
-
-use App\Slug;
+namespace App\Sluggable;
 
 trait HasSlug
 {
