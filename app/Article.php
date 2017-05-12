@@ -3,13 +3,15 @@
 namespace App;
 
 use App\Filters\Filterable;
+use App\Sluggable\HasSlug;
 use App\Traits\FavoritedTrait;
-use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    use Filterable, FavoritedTrait, Sluggable;
+    use Filterable,
+        FavoritedTrait,
+        HasSlug;
 
     /**
      * The attributes that are mass assignable.
@@ -87,20 +89,6 @@ class Article extends Model
     }
 
     /**
-     * Return the sluggable configuration array for this model.
-     *
-     * @return array
-     */
-    public function sluggable()
-    {
-        return [
-            'slug' => [
-                'source' => 'title'
-            ]
-        ];
-    }
-
-    /**
      * Get the key name for route model binding.
      *
      * @return string
@@ -108,5 +96,25 @@ class Article extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    /**
+     * Get the attribute name to slugify.
+     *
+     * @return string
+     */
+    public function getSlugSourceColumn()
+    {
+        return 'title';
+    }
+
+    /**
+     * Get list of values which are not allowed for this resource
+     *
+     * @return array
+     */
+    public function getBannedSlugValues()
+    {
+        return ['feed'];
     }
 }

@@ -93,7 +93,6 @@ More information regarding the project can be found here https://github.com/goth
 
 ## Dependencies
 
-- [eloquent-sluggable](https://github.com/cviebrock/eloquent-sluggable) - For auto generation of unique slugs
 - [jwt-auth](https://github.com/tymondesigns/jwt-auth) - For authentication using JSON Web Tokens
 - [laravel-cors](https://github.com/barryvdh/laravel-cors) - For handling Cross-Origin Resource Sharing (CORS)
 
