@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Tag;
-use App\Transformers\TagTransformer;
+use App\RealWorld\Transformers\TagTransformer;
 
 class TagController extends ApiController
 {

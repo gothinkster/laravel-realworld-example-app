@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use Exception;
-use App\Paginate\Paginator;
-use App\Transformers\Transformer;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection;
+use App\Http\Controllers\Controller;
+use App\RealWorld\Paginate\Paginate;
+use App\RealWorld\Transformers\Transformer;
 
 class ApiController extends Controller
 {
-    /** \App\Transformers\Transformer
+    /** \App\RealWorld\Transformers\Transformer
      *
      * @var null
      */
@@ -53,18 +53,18 @@ class ApiController extends Controller
     /**
      * Respond with pagination.
      *
-     * @param $paginator
+     * @param $paginated
      * @param int $statusCode
      * @param array $headers
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithPagination($paginator, $statusCode = 200, $headers = [])
+    protected function respondWithPagination($paginated, $statusCode = 200, $headers = [])
     {
-        $this->checkPaginator($paginator);
+        $this->checkPaginated($paginated);
 
         $this->checkTransformer();
 
-        $data = $this->transformer->paginate($paginator);
+        $data = $this->transformer->paginate($paginated);
 
         return $this->respond($data, $statusCode, $headers);
     }
@@ -188,15 +188,15 @@ class ApiController extends Controller
     }
 
     /**
-     * Check if valid paginator.
+     * Check if valid paginate instance.
      *
-     * @param $paginator
+     * @param $paginated
      * @throws Exception
      */
-    private function checkPaginator($paginator)
+    private function checkPaginated($paginated)
     {
-        if (! $paginator instanceof Paginator) {
-            throw new Exception('Expected instance of Paginator.');
+        if (! $paginated instanceof Paginate) {
+            throw new Exception('Expected instance of Paginate.');
         }
     }
 }

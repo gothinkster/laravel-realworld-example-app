@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Traits;
+namespace App\RealWorld\Favorite;
 
 use App\Article;
 
-trait FavoriteTrait
+trait HasFavorite
 {
     /**
      * Favorite the given article.

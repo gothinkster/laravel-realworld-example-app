@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Transformers;
+namespace App\RealWorld\Transformers;
 
-class ProfileTransformer extends Transformer
+class UserTransformer extends Transformer
 {
-    protected $resourceName = 'profile';
+    protected $resourceName = 'user';
 
     public function transform($data)
     {
         return [
+            'email'     => $data['email'],
+            'token'     => $data['token'],
             'username'  => $data['username'],
             'bio'       => $data['bio'],
             'image'     => $data['image'],
-            'following' => $data['following'],
         ];
     }
 }

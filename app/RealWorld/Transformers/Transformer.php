@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Transformers;
+namespace App\RealWorld\Transformers;
 
-use App\Paginate\Paginator;
 use Illuminate\Support\Collection;
+use App\RealWorld\Paginate\Paginate;
 
 abstract class Transformer
 {
@@ -43,21 +43,21 @@ abstract class Transformer
     /**
      * Transform a paginated item.
      *
-     * @param Paginator $paginator
+     * @param Paginate $paginated
      * @return array
      */
-    public function paginate(Paginator $paginator)
+    public function paginate(Paginate $paginated)
     {
         $resourceName = str_plural($this->resourceName);
 
         $countName = str_plural($this->resourceName) . 'Count';
 
         $data = [
-            $resourceName => $paginator->getData()->map([$this, 'transform'])
+            $resourceName => $paginated->getData()->map([$this, 'transform'])
         ];
 
         return array_merge($data, [
-            $countName => $paginator->getTotal()
+            $countName => $paginated->getTotal()
         ]);
     }
 

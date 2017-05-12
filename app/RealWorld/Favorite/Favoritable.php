@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Traits;
+namespace App\RealWorld\Favorite;
 
 use App\User;
 
-trait FavoritedTrait
+trait Favoritable
 {
     /**
      * Check if the authenticated user has favorited the article.

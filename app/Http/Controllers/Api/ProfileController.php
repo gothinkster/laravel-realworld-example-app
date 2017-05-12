@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\User;
-use App\Transformers\ProfileTransformer;
+use App\RealWorld\Transformers\ProfileTransformer;
 
 class ProfileController extends ApiController
 {

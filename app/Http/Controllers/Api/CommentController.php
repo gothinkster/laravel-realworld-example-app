@@ -6,7 +6,7 @@ use App\Article;
 use App\Comment;
 use App\Http\Requests\Api\CreateComment;
 use App\Http\Requests\Api\DeleteComment;
-use App\Transformers\CommentTransformer;
+use App\RealWorld\Transformers\CommentTransformer;
 
 class CommentController extends ApiController
 {

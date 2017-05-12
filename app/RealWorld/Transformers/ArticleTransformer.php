@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Transformers;
+namespace App\RealWorld\Transformers;
 
 class ArticleTransformer extends Transformer
 {

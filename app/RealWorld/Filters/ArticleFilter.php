@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filters;
+namespace App\RealWorld\Filters;
 
 use App\Tag;
 use App\User;

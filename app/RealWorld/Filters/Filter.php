@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filters;
+namespace App\RealWorld\Filters;
 
 use ReflectionClass;
 use Illuminate\Http\Request;

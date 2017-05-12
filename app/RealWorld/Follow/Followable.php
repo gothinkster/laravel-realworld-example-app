@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Traits;
+namespace App\RealWorld\Follow;
 
 use App\User;
 
-trait FollowableTrait
+trait Followable
 {
     /**
      * Check if the authenticated user is following this user.

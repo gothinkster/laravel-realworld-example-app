@@ -2,16 +2,14 @@
 
 namespace App;
 
-use App\Filters\Filterable;
-use App\Sluggable\HasSlug;
-use App\Traits\FavoritedTrait;
+use App\RealWorld\Slug\HasSlug;
+use App\RealWorld\Filters\Filterable;
+use App\RealWorld\Favorite\Favoritable;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    use Filterable,
-        FavoritedTrait,
-        HasSlug;
+    use Favoritable, Filterable, HasSlug;
 
     /**
      * The attributes that are mass assignable.

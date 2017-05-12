@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Transformers\UserTransformer;
 use App\Http\Requests\Api\UpdateUser;
+use App\RealWorld\Transformers\UserTransformer;
 
 class UserController extends ApiController
 {

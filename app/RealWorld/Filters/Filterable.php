@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filters;
+namespace App\RealWorld\Filters;
 
 trait Filterable
 {

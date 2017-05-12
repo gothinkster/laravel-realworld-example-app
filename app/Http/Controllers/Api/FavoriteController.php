@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Article;
-use App\Transformers\ArticleTransformer;
+use App\RealWorld\Transformers\ArticleTransformer;
 
 class FavoriteController extends ApiController
 {

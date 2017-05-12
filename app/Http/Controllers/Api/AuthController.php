@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use Auth;
 use App\User;
-use App\Transformers\UserTransformer;
 use App\Http\Requests\Api\LoginUser;
 use App\Http\Requests\Api\RegisterUser;
+use App\RealWorld\Transformers\UserTransformer;
 
 class AuthController extends ApiController
 {

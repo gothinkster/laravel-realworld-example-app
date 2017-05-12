@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Paginate;
+namespace App\RealWorld\Paginate;
 
 use Illuminate\Database\Eloquent\Builder;
 
-class Paginator
+class Paginate
 {
     /**
      * Total count of the items.
@@ -21,7 +21,7 @@ class Paginator
     protected $data;
 
     /**
-     * Paginator constructor.
+     * Paginate constructor.
      *
      * @param \Illuminate\Database\Eloquent\Builder $builder
      * @param int $limit

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Sluggable;
+namespace App\RealWorld\Slug;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -61,7 +61,7 @@ class Slug
 
         $suffix = $this->generateSuffix($slug, $notAllowed);
 
-        return "{$slug}-{$suffix}";
+        return $slug . static::SEPARATOR . $suffix;
 
     }
 
@@ -69,13 +69,13 @@ class Slug
      * Generate suffix for unique slug
      *
      * @param string $slug
-     * @param array $notAllowed
+     * @param \Illuminate\Support\Collection $notAllowed
      * @return string
      */
     public function generateSuffix($slug, $notAllowed)
     {
-        /** @var Collection $notAllowed */
-        $notAllowed->transform(function ($item, $key) use ($slug) {
+        /** @var \Illuminate\Support\Collection $notAllowed */
+        $notAllowed->transform(function ($item) use ($slug) {
 
             if ($slug == $item) {
                 return 0;
@@ -124,11 +124,12 @@ class Slug
         if (!$this->model instanceof Model || !method_exists($this->model, 'getSlugColumn')) {
             return collect([]);
         }
+
         $slugColumn = $this->model->getSlugColumn();
 
         return $this->model->newQuery()
             ->where($slugColumn, $slug)
-            ->orWhere($slugColumn, 'LIKE', "{$slug}-%")
+            ->orWhere($slugColumn, 'LIKE', $slug . static::SEPARATOR . '%')
             ->get()
             ->pluck($slugColumn);
     }

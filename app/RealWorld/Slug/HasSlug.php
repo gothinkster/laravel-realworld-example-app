@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Sluggable;
+namespace App\RealWorld\Slug;
 
 trait HasSlug
 {

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Paginate\Paginator;
-use App\Transformers\ArticleTransformer;
+use App\RealWorld\Paginate\Paginate;
+use App\RealWorld\Transformers\ArticleTransformer;
 
 class FeedController extends ApiController
 {
@@ -28,7 +28,7 @@ class FeedController extends ApiController
     {
         $user = auth()->user();
 
-        $articles = new Paginator($user->feed());
+        $articles = new Paginate($user->feed());
 
         return $this->respondWithPagination($articles);
     }
