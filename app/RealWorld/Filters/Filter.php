@@ -69,7 +69,11 @@ abstract class Filter
 
         foreach ($this->getFilters() as $name => $value) {
             if (method_exists($this, $name)) {
-                $this->$name($value);
+                if ($value) {
+                    $this->$name($value);
+                } else {
+                    $this->$name();
+                }
             }
         }
 
