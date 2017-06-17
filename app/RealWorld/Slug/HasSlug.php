@@ -33,7 +33,6 @@ trait HasSlug
      */
     abstract public function getSlugSourceColumn();
 
-
     /**
      * Get the name of the slug column
      *
@@ -53,5 +52,4 @@ trait HasSlug
     {
         return [];
     }
-
 }
