@@ -82,7 +82,7 @@ Run the database seeder and you're done
     
 ## Docker
 
-To install with docker, run following commands:
+To install with [Docker](https://www.docker.com), run following commands:
 
 ```
 git clone git@github.com:gothinkster/laravel-realworld-example-app.git
