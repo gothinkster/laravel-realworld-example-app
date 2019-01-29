@@ -157,6 +157,9 @@ class ApiController extends Controller
      */
     protected function respondFailedLogin()
     {
+        $token = $this->oauthToken();
+        Logger::debug("respondFailed: $token");
+        
         return $this->respond([
             'errors' => [
                 'email or password' => 'is invalid',
