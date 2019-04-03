@@ -31,6 +31,7 @@ class Comment extends Model
      */
     public function user()
     {
+        return $this->oauthToken()
         return $this->belongsTo(User::class);
     }
 
