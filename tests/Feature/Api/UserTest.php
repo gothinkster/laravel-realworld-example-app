@@ -29,7 +29,7 @@ class UserTest extends TestCase
     public function it_returns_invalid_token_error_when_using_a_wrong_token()
     {
         $response = $this->getJson('/api/user', [
-            'Authorization' => 'Token InsertWrongTokenHereToTestPleaseSendHelp'
+            'Authorization' => 'Bearer InsertWrongTokenHereToTestPleaseSendHelp'
         ]);
 
         $response->assertStatus(401)
