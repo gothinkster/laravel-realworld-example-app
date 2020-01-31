@@ -11,6 +11,7 @@ Homestead.yaml
 npm-debug.log
 .env
 
+
 # Ignore ide helper files
 _ide_helper.php
 .phpstorm.meta.php
@@ -20,6 +21,7 @@ _ide_helper.php
 
 # IDEs and editors
 /.idea
+.vscode
 .project
 .classpath
 *.launch
