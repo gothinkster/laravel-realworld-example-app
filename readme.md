@@ -14,6 +14,7 @@ This repo is functionality complete — PRs and issues welcome!
 
 Please check the official laravel installation guide for server requirements before you start. [Official Documentation](https://laravel.com/docs/5.4/installation#installation)
 
+Alternative installation is possible without local dependencies relying on [Docker](#docker). 
 
 Clone the repository
 
@@ -78,6 +79,26 @@ Run the database seeder and you're done
 ***Note*** : It's recommended to have a clean database before seeding. You can refresh your migrations at any point to clean the database by running the following command
 
     php artisan migrate:refresh
+    
+## Docker
+
+To install with [Docker](https://www.docker.com), run following commands:
+
+```
+git clone git@github.com:gothinkster/laravel-realworld-example-app.git
+cd laravel-realworld-example-app
+cp .env.example.docker .env
+docker run -v $(pwd):/app composer install
+cd ./docker
+docker-compose up -d
+docker-compose exec php php artisan key:generate
+docker-compose exec php php artisan jwt:generate
+docker-compose exec php php artisan migrate
+docker-compose exec php php artisan db:seed
+docker-compose exec php php artisan serve --host=0.0.0.0
+```
+
+The api can be accessed at [http://localhost:8000/api](http://localhost:8000/api).
 
 ## API Specification
 

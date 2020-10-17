@@ -1,0 +1,19 @@
+version: '3.1'
+services:
+
+  php:
+    build:
+      context: ./php
+    volumes:
+      - ../:/app
+    working_dir: /app
+    ports:
+      - 8000:8000
+
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
