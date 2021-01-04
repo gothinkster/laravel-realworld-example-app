@@ -50,6 +50,7 @@ class AuthController extends ApiController
             'username' => $request->input('user.username'),
             'email' => $request->input('user.email'),
             'password' => bcrypt($request->input('user.password')),
+            'image' => 'https://static.productionready.io/images/smiley-cyrus.jpg',
         ]);
 
         return $this->respondWithTransformer($user);
