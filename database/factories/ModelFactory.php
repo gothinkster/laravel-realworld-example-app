@@ -18,7 +18,7 @@ $factory->define(App\User::class, function (\Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => 'secret',
         'bio' => $faker->sentence,
-        'image' => 'https://cdn.worldvectorlogo.com/logos/laravel.svg',
+        'image' => 'https://static.productionready.io/images/smiley-cyrus.jpg',
     ];
 });
 
