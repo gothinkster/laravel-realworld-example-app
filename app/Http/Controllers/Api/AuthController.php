@@ -52,8 +52,6 @@ class AuthController extends ApiController
             'password' => bcrypt($request->input('user.password')),
         ]);
 
-        $user->wallet()->create(['balance' => 100000]);
-
         return $this->respondWithTransformer($user);
     }
 }

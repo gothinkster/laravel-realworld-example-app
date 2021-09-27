@@ -31,6 +31,18 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token',
     ];
 
+    /** 
+     * override boot method to use created event
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function($user) {
+            Wallet::CreateForNewUser($user);
+        });
+    }
+
     /**
      * Set the password using bcrypt hash.
      *

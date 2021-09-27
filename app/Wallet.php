@@ -8,6 +8,13 @@ class Wallet extends Model
 {
     public $fillable = ['user_id', 'balance'];
 
+    const FIRST_BALANCE = 100000;
+
+    public function scopeCreateForNewUser($q, $user)
+    {
+        return $q->create(['user_id' => $user->id, 'balance' => static::FIRST_BALANCE]);
+    }
+    
     /**
      * Relation to User
      *
