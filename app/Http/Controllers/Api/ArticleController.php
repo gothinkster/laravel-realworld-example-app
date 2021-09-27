@@ -10,6 +10,7 @@ use App\Http\Requests\Api\CreateArticle;
 use App\Http\Requests\Api\UpdateArticle;
 use App\Http\Requests\Api\DeleteArticle;
 use App\RealWorld\Transformers\ArticleTransformer;
+use App\UseCases\Article\CreateArticleUseCase;
 
 class ArticleController extends ApiController
 {
