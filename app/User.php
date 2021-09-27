@@ -106,6 +106,16 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
+     * Relation to the Invoice
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
+    /**
      * Get the key name for route model binding.
      *
      * @return string
