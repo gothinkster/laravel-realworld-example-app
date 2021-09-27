@@ -47,24 +47,7 @@ class ArticleController extends ApiController
      */
     public function store(CreateArticle $request)
     {
-        $user = auth()->user();
-
-        $article = $user->articles()->create([
-            'title' => $request->input('article.title'),
-            'description' => $request->input('article.description'),
-            'body' => $request->input('article.body'),
-        ]);
-
-        $inputTags = $request->input('article.tagList');
-
-        if ($inputTags && ! empty($inputTags)) {
-
-            $tags = array_map(function($name) {
-                return Tag::firstOrCreate(['name' => $name])->id;
-            }, $inputTags);
-
-            $article->tags()->attach($tags);
-        }
+        $article = app(CreateArticleUseCase::class)->perform($request);
 
         return $this->respondWithTransformer($article);
     }
