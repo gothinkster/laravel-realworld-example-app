@@ -14,7 +14,17 @@ class Wallet extends Model
     {
         return $q->create(['user_id' => $user->id, 'balance' => static::FIRST_BALANCE]);
     }
-    
+
+    public function deposit($amount)
+    {
+        $this->increment('balance', $amount);
+    }
+
+    public function withdraw($amount)
+    {
+        $this->decrement('balance', $amount);
+    }
+
     /**
      * Relation to User
      *
