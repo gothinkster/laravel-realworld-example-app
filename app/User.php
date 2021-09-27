@@ -84,6 +84,16 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
+     * Relation to Wallet
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class);
+    }
+
+    /**
      * Get the key name for route model binding.
      *
      * @return string
