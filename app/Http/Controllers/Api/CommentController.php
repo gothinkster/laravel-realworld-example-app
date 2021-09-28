@@ -6,6 +6,7 @@ use App\Article;
 use App\Comment;
 use App\Http\Requests\Api\CreateComment;
 use App\Http\Requests\Api\DeleteComment;
+use App\UseCases\Comment\CreateCommentUseCase;
 use App\RealWorld\Transformers\CommentTransformer;
 
 class CommentController extends ApiController
@@ -45,10 +46,7 @@ class CommentController extends ApiController
      */
     public function store(CreateComment $request, Article $article)
     {
-        $comment = $article->comments()->create([
-            'body' => $request->input('comment.body'),
-            'user_id' => auth()->id(),
-        ]);
+        $comment = app(CreateCommentUseCase::class)->perform($request, $article);
 
         return $this->respondWithTransformer($comment);
     }
