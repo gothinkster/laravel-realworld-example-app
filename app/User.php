@@ -108,11 +108,21 @@ class User extends Authenticatable implements JWTSubject
     /**
      * Relation to the Invoice
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function invoices()
     {
         return $this->hasMany(Invoice::class);
+    }
+
+    /**
+     * Relation to the UserAction
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function action()
+    {
+        return $this->hasOne(UserAction::class);
     }
 
     /**
