@@ -4,6 +4,7 @@ namespace App;
 
 use App\RealWorld\Follow\Followable;
 use App\RealWorld\Favorite\HasFavorite;
+use App\RealWorld\UserAction\HasAction;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -11,7 +12,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable, Followable, HasFavorite;
+    use Notifiable, Followable, HasFavorite, HasAction;
 
     /**
      * The attributes that are mass assignable.

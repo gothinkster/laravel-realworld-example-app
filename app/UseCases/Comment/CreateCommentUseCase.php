@@ -28,8 +28,7 @@ class CreateCommentUseCase
 		DB::beginTransaction();
 		try {
 			$this->createComment()
-				 ->withdrawFromWallet()
-				 ->newInvoice();
+				 ->withdrawFromWallet();
 
 			DB::commit();
 
@@ -52,12 +51,17 @@ class CreateCommentUseCase
             'user_id' => $this->user->id
 		]);
 
+		$this->user->newCommentAction();
+
 		return $this;
 	}
 
 	private function withdrawFromWallet()
 	{
-		$this->user->wallet->withdraw(static::COMMENT_PRICE);
+		if ( ! $this->user->isCommentFree()) {
+			$this->user->wallet->withdraw(static::COMMENT_PRICE);
+			$this->newInvoice();
+		}
 
 		return $this;
 	}
