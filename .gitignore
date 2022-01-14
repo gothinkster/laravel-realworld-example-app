@@ -29,3 +29,7 @@ _ide_helper.php
 #System Files
 .DS_Store
 Thumbs.db
+
+
+#Testing
+/file.txt
