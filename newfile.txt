@@ -6,3 +6,5 @@ Adding few more line to check diff tool and merge tool configured in git
 p4Merge is the tool configured for diff and merge tool in git.
 
 Testing the difftool
+
+Copyright 2022
