@@ -1,3 +1,8 @@
 # New Files Created for Testing Purpose
 This is just a testing file.
 Added another line
+
+Adding few more line to check diff tool and merge tool configured in git
+p4Merge is the tool configured for diff and merge tool in git.
+
+Testing the difftool
