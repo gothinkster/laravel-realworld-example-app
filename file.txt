@@ -1,3 +1,10 @@
-This is just a test file
-Added line
-Testing
+<!doctype>
+<html>
+<head>
+<title>Test</title>
+</head>
+<body>
+<p>Testing file</p>
+
+</body>
+</html>
