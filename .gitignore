@@ -33,3 +33,4 @@ Thumbs.db
 
 #Testing
 /file.txt
+*.orig
